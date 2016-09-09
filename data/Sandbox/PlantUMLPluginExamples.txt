@@ -1,0 +1,306 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1423779666" format="1.1" reprev="1" version="1"}%
+%META:TOPICPARENT{name="System.PlantUMLPlugin"}%
+---+!! Plant UML Plugin Examples
+
+%TOC%
+
+---++ Examples
+
+Note: these sample graphs were copied from plantuml.sourceforge.net.  Visit that site for more examples.
+
+%STARTINCLUDE%
+---+++ Sequence Diagram
+
+__You type:__
+<sticky>
+<verbatim>
+<plantuml>
+actor Foo1
+boundary Foo2
+control Foo3
+entity Foo4
+database Foo5
+Foo1 -> Foo2 : To boundary
+Foo1 -> Foo3 : To control
+Foo1 -> Foo4 : To entity
+Foo1 -> Foo5 : To database
+</plantuml>
+</verbatim>
+<table><tr><td valign="top" width="50%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/sequence_001.png" alt="sequence_001.png" width='303' height='316' />
+</td><td valign="top" width="50%">
+__You get: (if installed)__ %BR%
+<plantuml>
+actor Foo1
+boundary Foo2
+control Foo3
+entity Foo4
+database Foo5
+Foo1 -> Foo2 : To boundary
+Foo1 -> Foo3 : To control
+Foo1 -> Foo4 : To entity
+Foo1 -> Foo5 : To database
+</plantuml>
+</td></tr></table></sticky>
+
+---+++ Use Case Diagram
+
+__You type:__
+<sticky>
+<verbatim>
+<plantuml>
+User -> (Start)
+User --> (Use the application) : A small label
+
+:Main Admin: ---> (Use the application) : This is\nyet another\nlabel
+</plantuml>
+</verbatim>
+<table><tr><td valign="top" width="50%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/usecase_003.png" alt="usecase_003.png" width='298' height='363' />
+</td><td valign="top" width="50%">
+__You get: (if installed)__ %BR%
+<plantuml>
+User -> (Start)
+User --> (Use the application) : A small label
+
+:Main Admin: ---> (Use the application) : This is\nyet another\nlabel
+</plantuml>
+</td></tr></table></sticky>
+
+---+++ Class Diagram
+
+__You type:__
+<sticky>
+<verbatim>
+<plantuml>
+class Object << general >>
+Object <|--- ArrayList
+
+note top of Object : In java, every class\nextends this one.
+
+note "This is a floating note" as N1
+note "This note is connected\nto several objects." as N2
+Object .. N2
+N2 .. ArrayList
+
+class Foo
+note left: On last defined class
+</plantuml>
+</verbatim>
+<table><tr><td valign="top" width="50%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/classes_009.png" alt="classes_009.png" width='592' height='394' />
+</td><td valign="top" width="50%">
+__You get: (if installed)__ %BR%
+<plantuml>
+class Object << general >>
+Object <|--- ArrayList
+
+note top of Object : In java, every class\nextends this one.
+
+note "This is a floating note" as N1
+note "This note is connected\nto several objects." as N2
+Object .. N2
+N2 .. ArrayList
+
+class Foo
+note left: On last defined class
+</plantuml>
+</td></tr></table></sticky>
+
+---+++ Activity Diagram
+
+__You type:__
+<sticky>
+<verbatim>
+<plantuml>
+(*) --> "Initialization"
+
+if "Some Test" then
+  -->[true] "Some Activity"
+  --> "Another activity"
+  -right-> (*)
+else
+  ->[false] "Something else"
+  -->[Ending process] (*)
+endif
+</plantuml>
+</verbatim>
+<table><tr><td valign="top" width="50%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/activity_003.png" alt="activity_003.png" width='282' height='360' />
+</td><td valign="top" width="50%">
+__You get: (if installed)__ %BR%
+<plantuml>
+(*) --> "Initialization"
+
+if "Some Test" then
+  -->[true] "Some Activity"
+  --> "Another activity"
+  -right-> (*)
+else
+  ->[false] "Something else"
+  -->[Ending process] (*)
+endif
+</plantuml>
+</td></tr></table></sticky>
+
+---+++ Component Diagram
+
+__You type:__
+<sticky>
+<verbatim>
+<plantuml>
+package "Some Group" {
+  HTTP - [First Component]
+  [Another Component]
+}
+ 
+node "Other Groups" {
+  FTP - [Second Component]
+  [First Component] --> FTP
+} 
+
+cloud {
+  [Example 1]
+}
+
+
+database "MySql" {
+  folder "This is my folder" {
+    [Folder 3]
+  }
+  frame "Foo" {
+    [Frame 4]
+  }
+}
+
+
+[Another Component] --> [Example 1]
+[Example 1] --> [Folder 3]
+[Folder 3] --> [Frame 4]
+</plantuml>
+</verbatim>
+<table><tr><td valign="top" width="50%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/component_004.png" alt="component_004.png" width='434' height='430' />
+</td><td valign="top" width="50%">
+__You get: (if installed)__ %BR%
+<plantuml>
+package "Some Group" {
+  HTTP - [First Component]
+  [Another Component]
+}
+ 
+node "Other Groups" {
+  FTP - [Second Component]
+  [First Component] --> FTP
+} 
+
+cloud {
+  [Example 1]
+}
+
+
+database "MySql" {
+  folder "This is my folder" {
+    [Folder 3]
+  }
+  frame "Foo" {
+    [Frame 4]
+  }
+}
+
+
+[Another Component] --> [Example 1]
+[Example 1] --> [Folder 3]
+[Folder 3] --> [Frame 4]
+</plantuml>
+</td></tr></table></sticky>
+
+---+++ State Diagram
+
+__You type:__
+<sticky>
+<verbatim>
+<plantuml>
+[*] -up-> First
+First -right-> Second
+Second --> Third
+Third -left-> Last
+</plantuml>
+</verbatim>
+<table><tr><td valign="top" width="50%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/state_004.png" alt="state_004.png" width='210' height='179' />
+</td><td valign="top" width="50%">
+__You get: (if installed)__ %BR%
+<plantuml>
+[*] -up-> First
+First -right-> Second
+Second --> Third
+Third -left-> Last
+</plantuml>
+</td></tr></table></sticky>
+
+---+++ Object Diagram
+
+__You type:__
+<sticky>
+<verbatim>
+<plantuml>
+object Object01
+object Object02
+object Object03
+object Object04
+object Object05
+object Object06
+object Object07
+object Object08
+
+Object01 <|-- Object02
+Object03 *-- Object04
+Object05 o-- "4" Object06
+Object07 .. Object08 : some labels
+</plantuml>
+</verbatim>
+<table><tr><td valign="top" width="50%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/objects_001.png" alt="objects_001.png" width='413' height='167' />
+</td><td valign="top" width="50%">
+__You get: (if installed)__ %BR%
+<plantuml>
+object Object01
+object Object02
+object Object03
+object Object04
+object Object05
+object Object06
+object Object07
+object Object08
+
+Object01 <|-- Object02
+Object03 *-- Object04
+Object05 o-- "4" Object06
+Object07 .. Object08 : some labels
+</plantuml>
+</td></tr></table></sticky>
+
+-- Main.JohnKnutson - 12 Feb 2015
+
+%META:FILEATTACHMENT{name="PlantUMLPlugin_1.png" attachment="PlantUMLPlugin_1.png" attr="h" comment="<nop>PlantUMLPlugin: UML graph" date="1423778448" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="PlantUMLPlugin_2.png" attachment="PlantUMLPlugin_2.png" attr="h" comment="<nop>PlantUMLPlugin: UML graph" date="1423778758" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="PlantUMLPlugin_3.png" attachment="PlantUMLPlugin_3.png" attr="h" comment="<nop>PlantUMLPlugin: UML graph" date="1423778760" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="sequence_001.png" attachment="sequence_001.png" attr="" comment="PlantUMLPlugin example sequence diagram" date="1423778857" path="sequence_001.png" size="12650" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="usecase_003.png" attachment="usecase_003.png" attr="" comment="PlantUMLPlugin example use case diagram" date="1423778894" path="usecase_003.png" size="14168" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="classes_009.png" attachment="classes_009.png" attr="" comment="PlantUMLPlugin example class diagram" date="1423778918" path="classes_009.png" size="15034" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="PlantUMLPlugin_4.png" attachment="PlantUMLPlugin_4.png" attr="h" comment="<nop>PlantUMLPlugin: UML graph" date="1423779398" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="PlantUMLPlugin_5.png" attachment="PlantUMLPlugin_5.png" attr="h" comment="<nop>PlantUMLPlugin: UML graph" date="1423779399" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="PlantUMLPlugin_6.png" attachment="PlantUMLPlugin_6.png" attr="h" comment="<nop>PlantUMLPlugin: UML graph" date="1423779400" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="PlantUMLPlugin_7.png" attachment="PlantUMLPlugin_7.png" attr="h" comment="<nop>PlantUMLPlugin: UML graph" date="1423779402" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="activity_003.png" attachment="activity_003.png" attr="" comment="PlantUMLPlugin example activity diagram" date="1423779450" path="activity_003.png" size="13762" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="component_004.png" attachment="component_004.png" attr="" comment="PlantUMLPlugin example component diagram" date="1423779493" path="component_004.png" size="19301" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="state_004.png" attachment="state_004.png" attr="" comment="PlantUMLPlugin example state diagram" date="1423779549" path="state_004.png" size="7008" user="JohnKnutson" version="1"}%
+%META:FILEATTACHMENT{name="objects_001.png" attachment="objects_001.png" attr="" comment="PlantUMLPlugin example object diagram" date="1423779566" path="objects_001.png" size="5333" user="JohnKnutson" version="1"}%

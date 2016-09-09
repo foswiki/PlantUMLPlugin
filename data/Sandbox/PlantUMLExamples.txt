@@ -1,0 +1,304 @@
+%META:TOPICINFO{author="ProjectContributor" date="1387510438" format="1.1" version="1"}%
+%META:TOPICPARENT{name="Plugins"}%
+
+---+!! Directed Graph Plugin Examples
+
+%TOC%
+
+---++ Howto
+
+%SYSTEMWEB%.HowtoDirectedGraphs has a basic howto on creating directed graphs using dot.
+The below examples show some of the capabilities of the %SYSTEMWEB%.DirectedGraphPlugin
+
+---++ Examples
+
+%STARTINCLUDE%
+---+++ Cole's example
+
+__You type:__
+<sticky>
+<verbatim>
+<dot >
+digraph G {
+    subgraph cluster_c0 {a0 -> a1 -> a2 -> a3}
+    subgraph cluster_c1 {
+        b0 -> b1 -> b2 -> b3;
+        label="Group B";
+    }
+    x -> a0 [style=dotted];
+    x -> b0;
+    a1 -> a3 [style=bold, label="a1 to a3"];
+    a3 -> a0;
+    a0 [shape=box, fontname=Courier, fontsize=11];
+    a1 [color=red];
+    a3 [label="Label\nfor a3"];
+    label="Cole's Example";
+}
+</dot> 
+</verbatim>
+<table><tr><td valign="top" width="50%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/graphsample.png" alt="graphsample.png"  width="344" height="570"  />
+</td><td valign="top" width="50%">
+__You get: (if installed)__ %BR%
+<dot >
+digraph G {
+    subgraph cluster_c0 {a0 -> a1 -> a2 -> a3}
+    subgraph cluster_c1 {
+        b0 -> b1 -> b2 -> b3;
+        label="Group B";
+    }
+    x -> a0 [style=dotted];
+    x -> b0;
+    a1 -> a3 [style=bold, label="a1 to a3"];
+    a3 -> a0;
+    a0 [shape=box, fontname=Courier, fontsize=11];
+    a1 [color=red];
+    a3 [label="Label\nfor a3"];
+    label="Cole's Example";
+}
+</dot> 
+</td></tr></table></sticky>
+
+---+++ Clientside imagemap (clickable nodes and edges)
+
+__You type:__
+<sticky>
+<verbatim>
+<dot map="1" size="auto" antialias="on">
+digraph G {
+    URL="http://foswiki.org";
+    Plugins [URL="http://foswiki.org/Extensions"];
+    DirectedGraphPlugin [URL="http://foswiki.org/Extensions/DirectedGraphPlugin"];
+    Plugins -> DirectedGraphPlugin;
+}
+</dot>
+</verbatim>
+<table><tr><td valign="top" width="25%">
+__You get: (simulated)__ %BR%
+<map id="sample" name="sample">
+<area shape="rect" href="http://foswiki.org/Extensions/PluginPackage" title="Plugins" alt="" coords="60,8,150,56" />
+<area shape="rect" href="http://foswiki.org/Extensions/DirectedGraphPlugin" title="DirectedGraphPlugin" alt="" coords="8,104,202,152" />
+<area shape="rect" href="http://www.foswiki.org" alt="" coords="8,8,202,152" />
+</map>
+<img usemap="#sample" src="%ATTACHURLPATH%/graphsample2.png"/>
+</td><td valign="top" width="25%">
+__You get: (if installed)__ %BR%
+<dot map="1">
+digraph G {
+    URL="http://www.foswiki.org";
+    Plugins [URL="http://foswiki.org/Extensions/PluginPackage"];
+    DirectedGraphPlugin [URL="http://foswiki.org/Extensions/DirectedGraphPlugin"];
+    Plugins -> DirectedGraphPlugin;
+}
+</dot>
+</td>
+<td valign="top" width="25%">
+__You get: (simulated, antialiasing on)__ %BR%
+<img usemap="#sample" src="%ATTACHURLPATH%/graphsample2_antialiased.png" alt="graphsample2_antialiased.png" width='205' height='154' />
+</td>
+<td valign="top" width="25%">
+__You get: (if installed, antialiasing on)__ %BR%
+<dot map="1" antialias="on" size="auto">
+digraph G {
+    URL="http://www.foswiki.org";
+    Plugins [URL="http://foswiki.org/Extensions/PluginPackage"];
+    DirectedGraphPlugin [URL="http://foswiki.org/Extensions/DirectedGraphPlugin"];
+    Plugins -> DirectedGraphPlugin;
+}
+</dot>
+</td>
+</tr></table></sticky>
+
+---+++ Usecase description / state diagram
+
+To view the =dot= input for this example, click the =[dot]= link located below the diagram.
+<sticky>
+<table><tr><td valign="top" width="25%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/usecase_sample.png" alt="usecase_sample.png" width='534' height='1000' />
+</td>
+<td valign="top" width="25%">
+__You get: (if installed)__ %BR%
+<dot antialias="on" size="auto" vectorformats="dot">
+digraph G {
+ size="9";
+ graph [rankdir="TB" label="1st Time Use/Phone Registration" fontsize=12 bgcolor="#eeeeff"];
+   node [shape=box fontsize=9];
+   edge [color=blue fontsize=8 font="Arial"];
+
+   cell_number_entry [label="Cell Number Entry"];
+   welcome [label="Welcome Page"];
+   member_name_creation [label="Member Name Creation"];
+   password_creation [label="Password Creation"];
+   member_name_unavailable [label="Member Name Unavailable"];
+   email_entry [label="Email Entry"];
+   zip_code_entry [label="Zip Code Entry"];
+   tos [label="TOS"];
+   decline_confirmation [label="Decline Confirmation"];
+   registration_confirmation [label="Registration Confirmation"];
+   member_name_entry [label="Member Name Entry"];
+   password_entry [label="Password Entry"];
+   confirm_phone_number [label="Confirm Phone Number"];
+   unsuccessfull_sign_in [label="Unsuccessfull Sign In"];
+   email_confirmation [label="Email Confirmation"];
+   main_menu [label="Main Menu"];
+   initial_screen [label="Initial Screen"];
+   exit_application [label="Exit the Application"];
+
+   welcome -> initial_screen [label="First Time"]
+   initial_screen -> member_name_creation [label="Register"];
+   initial_screen -> member_name_entry [label="Sign In"];
+   member_name_creation -> password_creation [label="Valid Member Name" dir="both"];
+   member_name_creation -> member_name_unavailable [label="Invalid Member Name" dir="both"];
+   welcome -> password_creation;
+   password_creation -> cell_number_entry [dir="both"];
+   member_name_entry -> password_entry [dir="both"];
+   cell_number_entry -> email_entry [dir="both"];
+   password_entry -> confirm_phone_number [label="Auth. Successful" dir="both"];
+   password_entry -> unsuccessfull_sign_in [label="Auth. Unsuccessful"];
+   email_entry -> zip_code_entry [dir="both"];
+   zip_code_entry -> tos [dir="both"];
+   confirm_phone_number -> main_menu;
+   unsuccessfull_sign_in -> member_name_entry [label="Try Again" constraint="false"];
+   unsuccessfull_sign_in -> email_confirmation;
+   tos -> decline_confirmation [label="Decline" dir="both"];
+   tos -> registration_confirmation [label="Accept"];
+   decline_confirmation -> exit_application [label="Yes"];
+   registration_confirmation -> main_menu [label="10 Sec/NEXT"]; 
+}
+</dot>
+</td>
+</tr></table></sticky>
+
+---+++ Component architecture (inline SVG)
+
+This is a typical example of a component architecture drawing (This kind of graph is also easy to do in Foswiki:Extensions.JHotDrawPlugin if you like the look but you prefer to draw it manually using your mouse).
+
+Click the =[dot]= link located below the diagram to view the input. Note that this example is an inline =SVG= with fallback to =PNG=
+<sticky>
+<table><tr><td valign="top" width="25%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/sample_component_architecture.png" alt="sample_component_architecture.png" width='918' height='251' />
+</td></tr>
+<tr><td valign="top" width="25%">
+__You get: (if installed)__ %BR%
+<dot inline="svg" map="1" vectorformats="dot">
+digraph G {
+  graph [rankdir=LR, size="9.5,2.5"]
+  subgraph cluster_0 {
+    graph [label=User]
+    edge [style=dashed]
+    browser [label="WWW\nbrowser" URL="http://www.mozilla.org/"]
+    svgplugin [label="SVG Plugin" URL="http://www.adobe.com/svg/viewer/install/old.html"]
+    pdfplugin [label="PDF Plugin" URL="http://www.adobe.com/support/downloads/product.jsp?product=10&platform=unix"]
+    svgplugin -> browser
+    svgplugin -> browser [dir=back]
+    pdfplugin -> browser
+    pdfplugin -> browser [dir=back]
+    {
+      graph [rank=same]
+      pngpage [label=PNG shape=box URL="/webdot/webdot/demo.dot.dot.png"]
+      svgpage [label=SVGZ shape=box URL="/webdot/webdot/demo.dot.dot.svgz"]
+      pdfpage [label=PDF shape=box URL="/webdot/webdot/demo.dot.dot.pdf"]
+    }
+    pngpage -> browser [dir=none style=dotted]
+    svgpage -> svgplugin [dir=none style=dotted]
+    pdfpage -> pdfplugin [dir=none style=dotted]
+  }
+  subgraph cluster_1 {
+    graph [label="Server 1"]
+    httpd1 [label=httpd URL="http://httpd.apache.org/"]
+    webdot [label="/cgi-bin/webdot" style=filled fillcolor=yellow color=black URL="/webdot/"]
+  }
+  subgraph cluster_2 {
+    graph [label="Server 2"]
+    httpd2 [label=httpd URL="http://httpd.apache.org/"]
+    "demo.dot" [shape=box URL="/webdot/demo.dot"]
+    httpd2 -> "demo.dot" [dir=none style=dotted]
+  }
+  browser -> httpd1 -> webdot -> httpd2
+  browser -> httpd1 -> webdot -> httpd2 [dir=back]
+}
+</dot>
+</td>
+</tr></table></sticky>
+
+---+++ Simple LAN setup (custom icons / shapefiles)
+
+This type of graph can also easily be extended, for instance making network nodes clickable, pointing to asset databases or similar.
+
+Click the =[dot]= link below the diagram to view the input.
+<sticky>
+<table><tr><td valign="top" width="25%">
+__You get: (simulated)__ %BR%
+<img src="%ATTACHURLPATH%/sample_simple_lan_setup.png" alt="sample_simple_lan_setup.png" width='206' height='300' />
+</td>
+<td valign="top" width="25%">
+__You get: (if installed)__ %BR%
+<dot engine="dot"  library="%SANDBOXWEB%.DirectedGraphExamples" vectorformats="dot">
+digraph G { size="2,3!"; dpi="100";
+    edge [arrowhead=none color=blue];
+    node [fontcolor=blue color=white];
+
+    Workstation [shapefile="Sun_Workstation.png"];
+    Printer [shapefile="Printer.png"];
+    Internet [shapefile="Cloud-Filled.png"];
+    Router [shapefile="Wireless_Router.png"];
+    Switch [shapefile="Workgroup_Switch.png"];
+    Laptop [shapefile="Laptop.png"];
+
+    Workstation -> Switch;
+    Printer -> Switch;
+    Switch -> Router;
+    Router -> Internet;
+    Laptop -> Router [style=dotted];
+}
+</dot>
+</td>
+<td valign="top" width="25%">
+__You get: (if installed, antialiased)__ %BR%
+<dot engine="dot"  antialias="1" size="auto" library="%SANDBOXWEB%.DirectedGraphExamples" vectorformats="dot">
+digraph G { size="2,3!"; dpi="100";
+    edge [arrowhead=none color=blue];
+    node [fontcolor=blue color=white];
+
+    Workstation [shapefile="Sun_Workstation.jpg"];
+    Printer [shapefile="Printer.jpg"];
+    Internet [shapefile="Cloud-Filled.jpg"];
+    Router [shapefile="Wireless_Router.jpg"];
+    Switch [shapefile="Workgroup_Switch.jpg"];
+    Laptop [shapefile="Laptop.jpg"];
+
+    Workstation -> Switch;
+    Printer -> Switch;
+    Switch -> Router;
+    Router -> Internet;
+    Laptop -> Router [style=dotted];
+}
+</dot>
+</td>
+</tr></table></sticky>
+%STOPINCLUDE%
+
+__Related Topics:__ 
+%SYSTEMWEB%.HowtoDirectedGraphs
+
+%META:FILEATTACHMENT{name="graphsample2.png" attr="h" autoattached="1" comment="Sample DOT graph" date="1172906345" path="graphsample2.png" size="1364" user="ProjectContributor" version=""}%
+%META:FILEATTACHMENT{name="graphsample2_antialiased.png" attr="h" autoattached="1" comment="Antialiased sample" date="1172906345" path="graphsample2_antialiased.png" size="12577" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Cloud-Filled.png" attr="h" autoattached="1" comment="Cisco library icon for sample graph" date="1172906345" path="Cloud-Filled.png" size="8648" user="ProjectContributor" version=""}%
+%META:FILEATTACHMENT{name="Workgroup_Switch.png" attr="h" autoattached="1" comment="Cisco library icon for sample graph" date="1172906345" path="Workgroup_Switch.png" size="6688" user="ProjectContributor" version=""}%
+%META:FILEATTACHMENT{name="Laptop.png" attr="h" autoattached="1" comment="Cisco library icon for sample graph" date="1172906345" path="Laptop.png" size="7372" user="ProjectContributor" version=""}%
+%META:FILEATTACHMENT{name="graphsample.png" attr="h" autoattached="1" comment="Sample DOT graph" date="1172906345" path="graphsample.png" size="5197" user="ProjectContributor" version=""}%
+%META:FILEATTACHMENT{name="sample_component_architecture.png" attr="h" autoattached="1" comment="Sample DOT graph" date="1172906345" path="sample_component_architecture.png" size="51946" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Sun_Workstation.png" attr="h" autoattached="1" comment="Cisco library icon for sample graph" date="1172906345" path="Sun_Workstation.png" size="6223" user="ProjectContributor" version=""}%
+%META:FILEATTACHMENT{name="Printer.png" attr="h" autoattached="1" comment="Cisco library icon for sample graph" date="1172906345" path="Printer.png" size="7747" user="ProjectContributor" version=""}%
+%META:FILEATTACHMENT{name="Wireless_Router.png" attr="h" autoattached="1" comment="Cisco library icon for sample graph" date="1172906345" path="Wireless_Router.png" size="7771" user="ProjectContributor" version=""}%
+%META:FILEATTACHMENT{name="usecase_sample.png" attr="h" autoattached="1" comment="DOT usecase sample" date="1172906345" path="usecase_sample.png" size="109307" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="sample_simple_lan_setup.png" attr="h" autoattached="1" comment="Sample DOT graph" date="1172906345" path="sample_simple_lan_setup.png" size="28102" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Cloud-Filled.jpg" attachment="Cloud-Filled.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223776982" path="Cloud-Filled.jpg" size="4986" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Laptop.jpg" attachment="Laptop.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777001" path="Laptop.jpg" size="4583" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Printer.jpg" attachment="Printer.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777024" path="Printer.jpg" size="4349" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Sun_Workstation.jpg" attachment="Sun_Workstation.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777052" path="Sun_Workstation.jpg" size="4481" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Wireless_Router.jpg" attachment="Wireless_Router.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777069" path="Wireless_Router.jpg" size="5046" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Workgroup_Switch.jpg" attachment="Workgroup_Switch.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777089" path="Workgroup_Switch.jpg" size="4483" user="ProjectContributor" version="1"}%
