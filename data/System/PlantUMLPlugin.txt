@@ -146,6 +146,7 @@ The webfonts package installs the Microsoft =andalemo=, =arial=, =comic=, =couri
 
 |  Change History: | <!-- versions below in reverse order --> |
 |  13 Aug 2015: | 1.0.0 Initial version |
+|  22 May 2018: | 1.0.1 Changed default file naming convention to include the MD5 hash of the graph description to facilitate better web caching resolution, i.e. make sure browsers see updates to graphs when changes are made |
 
 
 

@@ -45,8 +45,8 @@ use warnings;
 
 use Foswiki::Func ();
 
-our $VERSION = '1.0.0';
-our $RELEASE = '1.0.0';
+our $VERSION = '1.0.1';
+our $RELEASE = '1.0.1';
 
 # Short description of this plugin
 # One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
@@ -506,7 +506,8 @@ sub _handlePlantUML {
     # If a filename is not provided, set it to a name, with incrementing number.
     if ( $outFilename eq '' ) {    #no filename?  Create a new name
         $grNum{"$web.$topic"}++;    # increment graph number.
-        $outFilename = 'PlantUMLPlugin_' . $grNum{"$web.$topic"};
+        $outFilename = 'PlantUMLPlugin_' . $grNum{"$web.$topic"} . '_'
+	    . $hashCode;
         $outFilename = Foswiki::Sandbox::untaintUnchecked($outFilename);
     }
 
