@@ -45,8 +45,8 @@ use warnings;
 
 use Foswiki::Func ();
 
-our $VERSION = '1.0.1';
-our $RELEASE = '1.0.1';
+our $VERSION = '1.0.2';
+our $RELEASE = '1.0.2';
 
 # Short description of this plugin
 # One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
@@ -382,11 +382,12 @@ sub _handlePlantUML {
     use File::Basename;
     use Digest::MD5 qw( md5_hex );
     use Foswiki::Plugins::PlantUMLPlugin::GraphMetaStore;
+    use Encode;
 
     _writeDebug(' >>> _handlePlantUML Entered ');
 
-    my $attr = $_[1] || '';    # Attributes from the <plantuml ...> tag
-    my $desc = $_[0] || '';    # PlantUML input between the <plantuml> tags
+    my $attr = utf8::is_utf8($_[1]) ? Encode::encode_utf8($_[1]) :$_[1] || '';    # Attributes from the <plantuml ...> tag
+    my $desc = utf8::is_utf8($_[0]) ? Encode::encode_utf8($_[0]) :$_[0] || '';    # PlantUML input between the <plantuml> tags
     my $meta = $_[2];
 
     return macroError("_handlePlantUML: undefined Meta object")
